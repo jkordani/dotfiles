@@ -10,13 +10,17 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(misterioso))
  '(package-selected-packages
-   '(common-lisp-snippets flymd markdown-preview-mode realgud realgud-lldb eglot dockerfile-mode cmake-mode find-file-in-project org-journal noaa nov jedi elpy indent-tools yaml-mode multiple-cursors hydra lsp-treemacs company company-lsp flycheck avy lsp-mode lsp-ui slime slime-repl-ansi-color xquery-mode xquery-tool hideshow-org outshine ggtags restart-emacs magit magit-svn nyan-mode zone-nyan paredit)))
+   '(projectile common-lisp-snippets flymd markdown-preview-mode realgud realgud-lldb eglot dockerfile-mode cmake-mode find-file-in-project org-journal noaa nov jedi elpy indent-tools yaml-mode multiple-cursors hydra lsp-treemacs company company-lsp flycheck avy lsp-mode lsp-ui slime slime-repl-ansi-color xquery-mode xquery-tool hideshow-org outshine ggtags restart-emacs magit magit-svn nyan-mode zone-nyan paredit)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install-selected-packages))
 
 (avy-setup-default)
 (global-set-key (kbd "C-c C-j") 'avy-resume)

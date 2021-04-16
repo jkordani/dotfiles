@@ -6,7 +6,7 @@ alias checkinstall="sudo checkinstall"
 
 alias kinetic="source /opt/ros/kinetic/setup.bash"
 
-alias srcalias='source ~/.bashrc; source ~/.bash_aliases'
+alias srcalias='source ~/.bashrc; source ~/.bash_aliases; source ~/.rr_aliases'
 
 #git dotfiles
 alias _config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
