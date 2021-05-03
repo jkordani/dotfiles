@@ -13,11 +13,15 @@ alias _config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 alias evosource="source ~/Code/evo/evo-play/bin/activate"
 
+alias sshh="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+
 config () {
     pushd $HOME >/dev/null
     _config $@
     popd >/dev/null
 }
+
+export EDITOR='emacsclient -a "" -c $@'
 
 
 function emacs() {
