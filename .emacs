@@ -9,9 +9,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(misterioso))
+ '(custom-enabled-themes '(doom-one))
+ '(custom-safe-themes
+   '("8f5a7a9a3c510ef9cbb88e600c0b4c53cdcdb502cfe3eb50040b7e13c6f4e78e" default))
  '(package-selected-packages
-   '(flycheck-clang-tidy clang-format+ cl-lib-highlight projectile common-lisp-snippets flymd markdown-preview-mode eglot dockerfile-mode cmake-mode find-file-in-project org-journal noaa nov jedi elpy indent-tools yaml-mode multiple-cursors hydra lsp-treemacs company company-lsp flycheck avy lsp-mode lsp-ui slime slime-repl-ansi-color xquery-mode xquery-tool hideshow-org outshine ggtags restart-emacs magit magit-svn nyan-mode zone-nyan paredit slime-company)))
+   '(doom-themes flycheck-clang-tidy clang-format+ cl-lib-highlight projectile common-lisp-snippets flymd markdown-preview-mode eglot dockerfile-mode cmake-mode find-file-in-project org-journal noaa nov jedi elpy indent-tools yaml-mode multiple-cursors hydra lsp-treemacs company company-lsp flycheck avy lsp-mode lsp-ui slime slime-repl-ansi-color xquery-mode xquery-tool hideshow-org outshine ggtags restart-emacs magit magit-svn nyan-mode zone-nyan paredit slime-company)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
