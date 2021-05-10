@@ -41,3 +41,5 @@ function newemacsc () {
         nohup emacsclient -a "" -c -s "$1" . &
     fi
 }
+
+source /opt/ros/kinetic/setup.bash
