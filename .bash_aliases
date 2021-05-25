@@ -2,6 +2,8 @@
 
 source ~/.rr_aliases
 
+alias sudo="sudo -E"
+
 alias checkinstall="sudo checkinstall"
 
 alias kinetic="source /opt/ros/kinetic/setup.bash"
