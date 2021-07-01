@@ -11,7 +11,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(doom-one))
  '(custom-safe-themes
-   '("f4876796ef5ee9c82b125a096a590c9891cec31320569fc6ff602ff99ed73dca" "8f5a7a9a3c510ef9cbb88e600c0b4c53cdcdb502cfe3eb50040b7e13c6f4e78e" default))
+   '("6c386d159853b0ee6695b45e64f598ed45bd67c47f671f69100817d7db64724d" "f4876796ef5ee9c82b125a096a590c9891cec31320569fc6ff602ff99ed73dca" "8f5a7a9a3c510ef9cbb88e600c0b4c53cdcdb502cfe3eb50040b7e13c6f4e78e" default))
  '(package-selected-packages
    '(doom-themes flycheck-clang-tidy clang-format+ cl-lib-highlight projectile common-lisp-snippets flymd markdown-preview-mode eglot dockerfile-mode cmake-mode find-file-in-project org-journal noaa nov jedi elpy indent-tools yaml-mode multiple-cursors hydra lsp-treemacs company company-lsp flycheck avy lsp-mode lsp-ui slime slime-repl-ansi-color xquery-mode xquery-tool hideshow-org outshine ggtags restart-emacs magit magit-svn nyan-mode zone-nyan paredit slime-company)))
 (custom-set-faces
@@ -21,14 +21,25 @@
  ;; If there is more than one, they won't work right.
  )
 
-(defadvice package-install-selected-packages (around auto-confirm compile activate)
-  (cl-letf (((symbol-function 'yes-or-no-p) (lambda (&rest args) t))
-            ((symbol-function 'y-or-n-p) (lambda (&rest args) t)))
-           ad-do-it))
+(defun auto-ask-install ()
+  (interactive)
+  (when (yes-or-no-p (format "Try to install %d packages?"
+                             (length package-selected-packages)))
+    (package-refresh-contents)
+    (mapc (lambda (package)
+            (unless (package-installed-p package)
+              (package-install package)))
+          package-selected-packages)))
 
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install-selected-packages))
+;; (defadvice package-install-selected-packages (around auto-confirm compile activate)
+;;   (cl-letf (((symbol-function 'yes-or-no-p) (lambda (&rest args) t))
+;;             ((symbol-function 'y-or-n-p) (lambda (&rest args) t)))
+;;            ad-do-it))
+
+
+;; (unless (package-installed-p 'use-package)
+;;   (package-refresh-contents)
+;;   (package-install-selected-packages))
 
 (avy-setup-default)
 (global-set-key (kbd "C-c C-j") 'avy-resume)
@@ -177,8 +188,8 @@
 (add-hook 'lisp-mode-hook 'paredit-mode)
 (add-hook 'common-lisp-lisp-mode-hook 'paredit-mode)
 
-(add-hook 'before-save-hook
-         'delete-trailing-whitespace)
+;; (add-hook 'before-save-hook
+;;          'delete-trailing-whitespace)
 
 (setq-default backup-directory-alist `(("." . "~/.saves")))
 (setq-default delete-old-versions t
