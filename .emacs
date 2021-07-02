@@ -1,5 +1,4 @@
 (require 'package)
-(require 'cl-lib)
 
 (add-to-list 'package-archives (cons "melpa" "http://melpa.org/packages/") t)
 
