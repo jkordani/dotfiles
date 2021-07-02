@@ -6,4 +6,6 @@ set target-async off
 maint set target-async off
 maint set target-non-stop off
 
+set debug-file-directory /usr/lib/debug:/usr/local/lib/debug
+
 source ~/.gdbinit_db-auto
