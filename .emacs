@@ -188,6 +188,25 @@
 (add-hook 'lisp-mode-hook 'paredit-mode)
 (add-hook 'common-lisp-lisp-mode-hook 'paredit-mode)
 
+(require 'git-gutter)
+(global-git-gutter-mode 1)
+(custom-set-variables
+ '(git-gutter:update-interval 2))
+
+(custom-set-variables
+ '(git-gutter:modified-sign " ") ;; two space
+ '(git-gutter:added-sign "+")    ;; multiple character is OK
+ '(git-gutter:deleted-sign "-"))
+
+(custom-set-variables
+ '(git-gutter:handled-backends '(git svn)))
+
+(set-face-background 'git-gutter:modified "cyan") ;; background color
+(set-face-foreground 'git-gutter:added "green")
+(set-face-foreground 'git-gutter:deleted "red")
+
+
+
 ;; (add-hook 'before-save-hook
 ;;          'delete-trailing-whitespace)
 
