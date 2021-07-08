@@ -4,7 +4,7 @@ source ~/.rr_aliases
 
 alias sudo="sudo -E"
 
-alias checkinstall="sudo checkinstall  --maintainer=jkordani@roboticresearch.com -D"
+alias checkinstall="sudo checkinstall --maintainer=jkordani@roboticresearch.com -D"
 
 alias kinetic="source /opt/ros/kinetic/setup.bash"
 
