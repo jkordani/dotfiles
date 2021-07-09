@@ -165,6 +165,8 @@
 (require 'flymake-shellcheck)
 (add-hook 'sh-mode-hook 'flymake-mode)
 (add-hook 'sh-mode-hook 'flymake-shellcheck-load)
+(custom-set-variables
+ '(flymake-shellcheck-allow-external-files t))
 
 (require 'eglot)
 (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd" "-j=6" "--header-insertion=iwyu" "--clang-tidy" "--suggest-missing-includes" "--recovery-ast=true"))

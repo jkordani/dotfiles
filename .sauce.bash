@@ -20,20 +20,20 @@ _sauce(){
         return 1
     else
         cur="${COMP_WORDS[1]}"
-        words=$(find ${maybe} -maxdepth 1 -type f -name "env*" -printf "%f\n")
+        words=$(find "${maybe}" -maxdepth 1 -type f -name "env*" -printf "%f\n")
         COMPREPLY=( $(compgen -W "${words}" -- "${cur}") )
     fi
 }
 
 
 restoreDirectory() {
-    cd "${RESTORE_DIR}"
+    cd "${RESTORE_DIR}" || return
     OLDPWD="$PREV_DIR"
 }
 
 
 findenv() {
-    CURRENT_DIR=$(dirname $(pwd))
+    CURRENT_DIR=$(dirname "$(pwd)")
 
     if [[ "${CURRENT_DIR}" == "/" ]]; then
         echo "FAILURE"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/.rr_aliases
+source /home/jkordani/.rr_aliases
 
 alias sudo="sudo -E"
 
@@ -18,9 +18,9 @@ alias evosource="source ~/Code/evo/evo-play/bin/activate"
 alias sshh="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 config () {
-    pushd $HOME >/dev/null
-    _config $@
-    popd >/dev/null
+    pushd "${HOME}" >/dev/null || return
+    _config "$@"
+    popd >/dev/null || return
 }
 
 export EDITOR='emacsclient -a "" -c $@'
