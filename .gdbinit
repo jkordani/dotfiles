@@ -11,3 +11,5 @@ set max-completions 10000
 set debug-file-directory /usr/lib/debug:/usr/local/lib/debug
 
 source ~/.gdbinit_db-auto
+
+source ~/.rrgdbinit
