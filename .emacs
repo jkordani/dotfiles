@@ -4,7 +4,7 @@
 
 (package-initialize)
 
-(setq custom-file (expand-file-name ".customizations.el"))
+(setq custom-file (expand-file-name "~/.customizations.el"))
 (load custom-file)
 
 (custom-set-faces
