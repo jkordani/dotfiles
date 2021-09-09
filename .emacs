@@ -203,6 +203,10 @@
 ;; (add-hook 'before-save-hook
 ;;          'delete-trailing-whitespace)
 
+;; interferes with eldoc in eglot...
+;; (require 'which-func)
+;; (which-func-mode t)
+
 (setq-default backup-directory-alist `(("." . "~/.saves")))
 (setq-default delete-old-versions t
   kept-new-versions 6
