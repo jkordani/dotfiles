@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(doom-one))
  '(custom-safe-themes
-   '("6c386d159853b0ee6695b45e64f598ed45bd67c47f671f69100817d7db64724d" "f4876796ef5ee9c82b125a096a590c9891cec31320569fc6ff602ff99ed73dca" "8f5a7a9a3c510ef9cbb88e600c0b4c53cdcdb502cfe3eb50040b7e13c6f4e78e" default))
+   '("835868dcd17131ba8b9619d14c67c127aa18b90a82438c8613586331129dda63" "6c386d159853b0ee6695b45e64f598ed45bd67c47f671f69100817d7db64724d" "f4876796ef5ee9c82b125a096a590c9891cec31320569fc6ff602ff99ed73dca" "8f5a7a9a3c510ef9cbb88e600c0b4c53cdcdb502cfe3eb50040b7e13c6f4e78e" default))
  '(flymake-shellcheck-allow-external-files t)
  '(git-gutter:added-sign "+")
  '(git-gutter:deleted-sign "-")
