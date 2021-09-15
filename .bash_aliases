@@ -68,4 +68,9 @@ function newemacsc () {
     fi
 }
 
+alias bin2hex="hexdump -ve '1/1 \"%.2x\"'"
+
+#makes my qt4 app recordable in rr replay tool.  But might change the behavior?
+export QT_X11_NO_MITSHM=1
+
 source /opt/ros/kinetic/setup.bash
