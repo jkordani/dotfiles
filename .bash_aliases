@@ -28,7 +28,7 @@ fi
 
 alias sudo="sudo -E"
 
-alias checkinstall="sudo checkinstall --maintainer=jkordani@roboticresearch.com -D"
+alias checkinstall="sudo checkinstall --maintainer=jkordani@roboticresearch.com -D --strip=no --stripso=no"
 
 alias kinetic="source /opt/ros/kinetic/setup.bash"
 
