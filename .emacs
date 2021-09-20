@@ -89,11 +89,12 @@
 (load "/home/jkordani/quicklisp/clhs-use-local.el" t)
 
 (recentf-mode 1)
+
+;; Cleanup the recent files list and synchronize it every 60 seconds.
+(setq recentf-auto-cleanup 60)
 (setq recentf-max-menu-items 250)
 (setq recentf-max-saved-items 250)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
-
-(run-at-time nil (* 5 60) 'recentf-save-list)
 
 (setq-default indent-tabs-mode nil)
 
