@@ -4,26 +4,28 @@ source /home/jkordani/.rr_aliases
 
 # SSH_ENV="/home/jkordani/.ssh/agent-environment"
 
-function start_agent {
-    echo "Initialising new SSH agent..."
-    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "/home/jkordani/.ssh/agent-environment"
-    echo succeeded
-    chmod 600 "/home/jkordani/.ssh/agent-environment"
-    source "/home/jkordani/.ssh/agent-environment" > /dev/null
-    /usr/bin/ssh-add;
-}
+# the below wasn't necessary until recently, and maybe it was transient... lets find out
 
-# Source SSH settings, if applicable
+# function start_agent {
+#     echo "Initialising new SSH agent..."
+#     /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "/home/jkordani/.ssh/agent-environment"
+#     echo succeeded
+#     chmod 600 "/home/jkordani/.ssh/agent-environment"
+#     source "/home/jkordani/.ssh/agent-environment" > /dev/null
+#     /usr/bin/ssh-add;
+# }
 
-if [ -f "/home/jkordani/.ssh/agent-environment" ]; then
-    source "/home/jkordani/.ssh/agent-environment" > /dev/null
-    #ps ${SSH_AGENT_PID} doesn't work under cywgin
-    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-        start_agent;
-    }
-else
-    start_agent;
-fi
+# # Source SSH settings, if applicable
+
+# if [ -f "/home/jkordani/.ssh/agent-environment" ]; then
+#     source "/home/jkordani/.ssh/agent-environment" > /dev/null
+#     #ps ${SSH_AGENT_PID} doesn't work under cywgin
+#     ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+#         start_agent;
+#     }
+# else
+#     start_agent;
+# fi
 
 
 alias sudo="sudo -E"
