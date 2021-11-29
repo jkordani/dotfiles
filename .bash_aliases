@@ -2,6 +2,8 @@
 
 source /home/jkordani/.rr_aliases
 
+alias udacity="docker run -e DISPLAY -e QT_X11_NO_MITSHM -v ~/.Xauthority:/home/user/.Xauthority --net host -v ~/Code/udacity/rse/:/home/jkordani/Code/udacity/rse/ -u user -it --rm udacity:latest /bin/bash"
+
 # SSH_ENV="/home/jkordani/.ssh/agent-environment"
 
 # the below wasn't necessary until recently, and maybe it was transient... lets find out
