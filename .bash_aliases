@@ -72,6 +72,11 @@ function newemacsc () {
     fi
 }
 
+function mkcd () {
+    mkdir -p "$1"
+    pushd "$1" || return
+}
+
 alias bin2hex="hexdump -ve '1/1 \"%.2x\"'"
 
 #makes my qt4 app recordable in rr replay tool.  But might change the behavior?
