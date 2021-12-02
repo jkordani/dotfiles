@@ -229,3 +229,25 @@
 
 ;; skip warnings in compilation mode
 (setq compilation-skip-threshold 2)
+
+;; Define + active modification to compile that locally sets
+;; shell-command-switch to "-ic".
+(defadvice compile (around use-bashrc activate)
+  "Load .bashrc in any calls to bash (e.g. so we can use aliases)"
+  (let ((shell-command-switch "-ic"))
+    ad-do-it))
+
+;; Define + active modification to compile that locally sets
+;; shell-command-switch to "-ic".
+(defadvice recompile (around use-bashrc activate)
+  "Load .bashrc in any calls to bash (e.g. so we can use aliases)"
+  (let ((shell-command-switch "-ic"))
+    ad-do-it))
+
+;; allows for tab completion of aliases and functions in various bash contexts
+;; as well as command prompts
+(autoload 'bash-completion-dynamic-complete
+          "bash-completion"
+          "BASH completion hook")
+(add-hook 'shell-dynamic-complete-functions
+          'bash-completion-dynamic-complete)
