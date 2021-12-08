@@ -1,6 +1,6 @@
 (require 'package)
 
-(add-to-list 'package-archives (cons "melpa" "http://melpa.org/packages/") t)
+(add-to-list 'package-archives (cons "melpa" "https://melpa.org/packages/") t)
 
 (package-initialize)
 
