@@ -76,6 +76,12 @@ function mkcd () {
     mkdir -p "$1"
     pushd "$1" || return
 }
+typeset -xf mkcd
+
+function localprojects () {
+    cd ~/quicklisp/local-projects/
+}
+typeset -xf localprojects
 
 alias bin2hex="hexdump -ve '1/1 \"%.2x\"'"
 
@@ -83,3 +89,4 @@ alias bin2hex="hexdump -ve '1/1 \"%.2x\"'"
 export QT_X11_NO_MITSHM=1
 
 source /opt/ros/kinetic/setup.bash
+
