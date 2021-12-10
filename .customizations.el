@@ -13,7 +13,7 @@
  '(git-gutter:modified-sign " ")
  '(git-gutter:update-interval 2)
  '(package-selected-packages
-   '(gnu-elpa-keyring-update doom-themes use-package helm-slime helm-sly gnu-elpa bash-completion sync-recentf flymake-shellcheck git-gutter flycheck-clang-tidy clang-format+ projectile common-lisp-snippets flymd eglot dockerfile-mode cmake-mode find-file-in-project org-journal noaa nov jedi elpy indent-tools yaml-mode multiple-cursors hydra lsp-treemacs flycheck avy slime-repl-ansi-color xquery-mode xquery-tool hideshow-org outshine ggtags restart-emacs magit-svn nyan-mode zone-nyan paredit slime-company)))
+   '(json-mode gnu-elpa-keyring-update doom-themes use-package helm-slime helm-sly gnu-elpa bash-completion sync-recentf flymake-shellcheck git-gutter flycheck-clang-tidy clang-format+ projectile common-lisp-snippets flymd eglot dockerfile-mode cmake-mode find-file-in-project org-journal noaa nov jedi elpy indent-tools yaml-mode multiple-cursors hydra lsp-treemacs flycheck avy slime-repl-ansi-color xquery-mode xquery-tool hideshow-org outshine ggtags restart-emacs magit-svn nyan-mode zone-nyan paredit slime-company)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
