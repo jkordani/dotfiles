@@ -64,7 +64,7 @@ function emacs() {
     fi
 }
 
-function newemacsc () {
+function newemacs () {
     if (( "$#" >= "2" )); then
         nohup emacsclient -a "" -c -s "$1" "${@:2}" &
     else
