@@ -191,8 +191,10 @@
 (add-hook 'slime-repl-mode-hook 'paredit-mode)
 (slime-setup '(slime-fancy slime-company))
 
+(require 'sly)
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 (add-hook 'lisp-mode-hook 'paredit-mode)
+(add-hook 'sly-mode-hook 'paredit-mode)
 (add-hook 'common-lisp-lisp-mode-hook 'paredit-mode)
 
 (require 'git-gutter)
