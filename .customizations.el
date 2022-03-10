@@ -16,7 +16,8 @@
    '(flycheck-yamllint flymake-yaml flymake-yamllint yaml-imenu vs-dark-theme vscode-icon posframe cmake-font-lock cmake-ide cmake-project markdown-preview-mode csv-mode json-mode gnu-elpa-keyring-update doom-themes use-package helm-slime helm-sly gnu-elpa bash-completion sync-recentf flymake-shellcheck git-gutter flycheck-clang-tidy clang-format+ projectile common-lisp-snippets flymd eglot dockerfile-mode cmake-mode find-file-in-project org-journal noaa nov jedi elpy indent-tools yaml-mode multiple-cursors hydra lsp-treemacs flycheck avy slime-repl-ansi-color xquery-mode xquery-tool hideshow-org outshine ggtags restart-emacs magit-svn nyan-mode zone-nyan paredit slime-company))
  '(safe-local-variable-values
    '((cmake-ide-project-dir . "/mnt/data/worktrees/DB-Auto/cmake/autodrive-am2/")
-     (cmake-ide-build-dir . "/mnt/data/worktrees/DB-Auto/cmake/autodrive-am2/build/"))))
+     (cmake-ide-build-dir . "/mnt/data/worktrees/DB-Auto/cmake/autodrive-am2/build/")))
+ '(visible-bell t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
