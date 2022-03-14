@@ -187,9 +187,14 @@
 (require 'magit)
 (add-hook 'magit-mode-hook 'magit-svn-mode)
 
-(require 'slime)
-(add-hook 'slime-repl-mode-hook 'paredit-mode)
-(slime-setup '(slime-fancy slime-company))
+;; (require 'slime)
+;; (add-hook 'slime-repl-mode-hook 'paredit-mode)
+;; (slime-setup '(slime-fancy slime-company))
+
+;; Warning (emacs): To restore SLIME in this session, customize ‘lisp-mode-hook’
+;; and replace ‘sly-editing-mode’ with ‘slime-lisp-mode-hook’.
+;; Warning (emacs): ‘sly.el’ loaded OK. To use SLY, customize ‘lisp-mode-hook’ and remove ‘slime-lisp-mode-hook’.
+
 
 (require 'sly)
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
