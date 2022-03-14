@@ -12,6 +12,7 @@
  '(git-gutter:handled-backends '(git svn))
  '(git-gutter:modified-sign " ")
  '(git-gutter:update-interval 2)
+ '(lisp-mode-hook '(sly-editing-mode))
  '(package-selected-packages
    '(flycheck-yamllint flymake-yaml flymake-yamllint yaml-imenu vs-dark-theme vscode-icon posframe cmake-font-lock cmake-ide cmake-project markdown-preview-mode csv-mode json-mode gnu-elpa-keyring-update doom-themes use-package helm-slime helm-sly gnu-elpa bash-completion sync-recentf flymake-shellcheck git-gutter flycheck-clang-tidy clang-format+ projectile common-lisp-snippets flymd eglot dockerfile-mode cmake-mode find-file-in-project org-journal noaa nov jedi elpy indent-tools yaml-mode multiple-cursors hydra lsp-treemacs flycheck avy slime-repl-ansi-color xquery-mode xquery-tool hideshow-org outshine ggtags restart-emacs magit-svn nyan-mode zone-nyan paredit slime-company))
  '(safe-local-variable-values
