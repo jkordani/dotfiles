@@ -163,6 +163,15 @@
 
 (setq confirm-kill-emacs #'y-or-n-p)
 
+;; (require 'makefile-mode)
+(add-to-list 'auto-mode-alist '(".*[Mm]akefile\..*\\'" . makefile-mode))
+
+;; (require 'sh-mode)
+(add-to-list 'auto-mode-alist '(".*env\..*\\'" . sh-mode))
+
+(require 'nxml-mode)
+(add-to-list 'auto-mode-alist '("\\.launch\\'" . nxml-mode))
+
 (require 'flymake-shellcheck)
 (add-hook 'sh-mode-hook 'flymake-mode)
 (add-hook 'sh-mode-hook 'flymake-shellcheck-load)
