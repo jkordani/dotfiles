@@ -170,7 +170,9 @@
 (add-to-list 'auto-mode-alist '(".*env\..*\\'" . sh-mode))
 
 ;; (require 'octave-mode)
-(add-to-list 'auto-mode-alist '(".*\.m" . octave-mode))
+;; (add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode))
+
+(require 'cl-lib)
 
 (require 'nxml-mode)
 (add-to-list 'auto-mode-alist '("\\.launch\\'" . nxml-mode))
