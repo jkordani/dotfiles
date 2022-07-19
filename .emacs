@@ -145,8 +145,13 @@
 ;; (add-hook 'objc-mode-hook #'my-flycheck-rtags-setup)
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
-(setq gc-cons-threshold 100000000)
-(setq read-process-output-max (* 1024 1024))
+(setq gc-cons-threshold 100000000
+      read-process-output-max (* 1024 1024)
+      treemacs-space-between-root-nodes nil
+      company-idle-delay 0.0
+      company-minimum-prefix-length 1
+      lsp-idle-delay 0.1
+      lsp-keymap-prefix "s-l")
 
 ;; https://www.reddit.com/r/emacs/comments/l0huvz/how_do_you_solve_merge_conflicts/
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -184,10 +189,20 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 
-(require 'eglot)
-(add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd" "-j=6" "--header-insertion=iwyu" "--clang-tidy" "--suggest-missing-includes" "--recovery-ast=true"))
-(add-hook 'c-mode-hook 'eglot-ensure)
-(add-hook 'c++-mode-hook 'eglot-ensure)
+;; (require 'eglot)
+;; (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd" "-j=6" "--header-insertion=iwyu" "--clang-tidy" "--suggest-missing-includes" "--recovery-ast=true"))
+;; (add-hook 'c-mode-hook 'eglot-ensure)
+;; (add-hook 'c++-mode-hook 'eglot-ensure)
+
+(require 'lsp-mode)
+(add-hook 'c-mode-hook #'lsp)
+(add-hook 'c++-mode-hook #'lsp)
+(add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
+
+(with-eval-after-load 'lsp-mode
+  ;; (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
+  (yas-global-mode)
+  (setq lsp-modeline-diagnostics-scope :workspace))
 
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
