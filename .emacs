@@ -1,8 +1,21 @@
 (require 'package)
 
+(setq debug-on-error t)
+
 (add-to-list 'package-archives (cons "melpa" "https://melpa.org/packages/") t)
 
 (package-initialize)
+
+(unless (package-installed-p 'use-package)
+  ;; only fetch the archives if you don't have use-package installed
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(require 'use-package)
+
+(eval-and-compile
+  (setq use-package-always-ensure t
+        use-package-expand-minimally t))
 
 (setq custom-file (expand-file-name "~/.customizations.el"))
 (load custom-file)
@@ -34,21 +47,20 @@
 ;;   (package-refresh-contents)
 ;;   (package-install-selected-packages))
 
-(avy-setup-default)
-(global-set-key (kbd "C-c C-j") 'avy-resume)
-
-;; It will bind, for example, avy-isearch to C-' in isearch-mode-map, so that you can select one of the currently visible isearch candidates using avy.
-
-(global-set-key (kbd "C-:") 'avy-goto-char)
-(global-set-key (kbd "M-g g") 'avy-goto-line)
-(global-set-key (kbd "M-g w") 'avy-goto-word-1)
-(global-set-key (kbd "M-g e") 'avy-goto-word-0)
+(use-package avy
+  :config (avy-setup-default)
+  :bind (("C-c C-j" . avy-resume)
+         
+           ;; It will bind, for example, avy-isearch to C-' in isearch-mode-map, so that you can select one of the currently visible isearch candidates using avy.
+         
+         ("C-:"   . avy-goto-char)
+         ("M-g g" . avy-goto-line)
+         ("M-g w" . avy-goto-word-1)
+         ("M-g e" . avy-goto-word-0)))
 
 ;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;; Replace "sbcl" with the path to your implementation
 (setq inferior-lisp-program "~/Code/ccl-dev/lx86cl64")
-
-
 
 (setq query-dbxml-pipeline "/home/jkordani/lib/db-xml/pipeline.pl")
 
@@ -88,13 +100,12 @@
 
 (load "/home/jkordani/quicklisp/clhs-use-local.el" t)
 
-(recentf-mode 1)
-
-;; Cleanup the recent files list and synchronize it every 60 seconds.
-(setq recentf-auto-cleanup 60)
+(require 'recentf)
+(setq recentf-auto-cleanup 60)   ;; Cleanup the recent files list and synchronize it every 60 seconds.
 (setq recentf-max-menu-items 250)
 (setq recentf-max-saved-items 250)
-(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+(recentf-mode 1) ; keep a list of recently opened files
+(bind-key "\C-x\ \C-r" 'recentf-open-files)
 
 (setq-default indent-tabs-mode nil)
 
@@ -177,44 +188,63 @@
 ;; (require 'octave-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode))
 
-(require 'cl-lib)
+(use-package cl-lib)
 
 (require 'nxml-mode)
 (add-to-list 'auto-mode-alist '("\\.launch\\'" . nxml-mode))
 
-(require 'flymake-shellcheck)
-(add-hook 'sh-mode-hook 'flymake-mode)
-(add-hook 'sh-mode-hook 'flymake-shellcheck-load)
+(use-package flymake-shellcheck
+  :disabled
+  :hook ((sh-mode flymake-mode)
+         (sh-mode flymake-shellcheck-load)))
 
-(require 'yasnippet)
-(yas-global-mode 1)
+(use-package yasnippet
+  :config (yas-global-mode 1))
 
 ;; (require 'eglot)
 ;; (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd" "-j=6" "--header-insertion=iwyu" "--clang-tidy" "--suggest-missing-includes" "--recovery-ast=true"))
 ;; (add-hook 'c-mode-hook 'eglot-ensure)
 ;; (add-hook 'c++-mode-hook 'eglot-ensure)
 
-(require 'lsp-mode)
-(add-hook 'c-mode-hook #'lsp)
-(add-hook 'c++-mode-hook #'lsp)
-(add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
-
-(with-eval-after-load 'lsp-mode
-  ;; (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
+(use-package lsp-mode
+  :init 
+  (setq gc-cons-threshold 100000000
+        read-process-output-max (* 1024 1024)
+        treemacs-space-between-root-nodes nil
+        company-idle-delay 0.0
+        company-minimum-prefix-length 1
+        lsp-idle-delay 0.1
+        lsp-keymap-prefix "s-l")
+  :hook ((c-mode lsp)
+         (c++-mode-hook lsp)
+         (lsp-mode lsp-enable-which-key-integration))
+  :config
+  (use-package yasnippet)
   (yas-global-mode)
   (setq lsp-modeline-diagnostics-scope :workspace))
 
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (define-key c-mode-base-map (kbd "<C-tab>") (function company-complete))))
+;; (with-eval-after-load 'lsp-mode
+;;   ;; (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
+;;   (yas-global-mode)
+;;   (setq lsp-modeline-diagnostics-scope :workspace))
 
-(require 're-builder)
-(setq reb-re-syntax 'string)
+(use-package company
+  :hook ((after-init global-company-mode)
+         (c-mode-common .
+                   (lambda ()
+                     (define-key c-mode-base-map (kbd "<C-tab>") (function company-complete))))))
 
-(require 'magit)
-(add-hook 'magit-mode-hook 'magit-svn-mode)
+(use-package re-builder
+  :config 
+  (setq reb-re-syntax 'string))
+
+(use-package magit)
+
+(use-package magit-svn
+  ;; :hook (magit-mode magit-svn-mode-hook)
+  )
+
+(use-package sly)
 
 ;; (require 'slime)
 ;; (add-hook 'slime-repl-mode-hook 'paredit-mode)
@@ -224,18 +254,20 @@
 ;; and replace ‘sly-editing-mode’ with ‘slime-lisp-mode-hook’.
 ;; Warning (emacs): ‘sly.el’ loaded OK. To use SLY, customize ‘lisp-mode-hook’ and remove ‘slime-lisp-mode-hook’.
 
+(use-package paredit
+  :disabled ;; don't know why this doesn't work
+  :hook (;; (emacs-lisp-mode paredit-mode)
+         ;; (lisp-mode paredit-mode)
+         ;; (sly-mode paredit-mode)
+         ;; (common-lisp-lisp-mode paredit-mode)
+         ))
 
-(require 'sly)
-(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
-(add-hook 'lisp-mode-hook 'paredit-mode)
-(add-hook 'sly-mode-hook 'paredit-mode)
-(add-hook 'common-lisp-lisp-mode-hook 'paredit-mode)
-
-(require 'git-gutter)
-(global-git-gutter-mode 1)
-(set-face-background 'git-gutter:modified "cyan") ;; background color
-(set-face-foreground 'git-gutter:added "green")
-(set-face-foreground 'git-gutter:deleted "red")
+(use-package git-gutter
+  :config
+  (set-face-background 'git-gutter:modified "cyan") ;; background color
+  (set-face-foreground 'git-gutter:added "green")
+  (set-face-foreground 'git-gutter:deleted "red")
+  (global-git-gutter-mode 1))
 
 ;; (add-hook 'before-save-hook
 ;;          'delete-trailing-whitespace)
@@ -256,7 +288,6 @@
   auto-save-timeout 5            ; number of seconds idletime before auto-save (default 30)
   auto-save-interval 50)
 
-(recentf-mode 1) ; keep a list of recently opened files
 (savehist-mode 1) ; keep minibuffer history
 (tool-bar-mode -1) ; turns off the toolbar
 ;;; may or may not allow emacs to scarf environment vars
@@ -288,10 +319,11 @@
 (add-hook 'shell-dynamic-complete-functions
           'bash-completion-dynamic-complete)
 
-(require 'ido)
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(setq ido-use-filename-at-point 'guess)
-(setq ido-create-new-buffer 'always)
-
-(ido-mode 1)
+(use-package ido
+  :init
+  (setq ido-enable-flex-matching t)
+  (setq ido-everywhere t)
+  (setq ido-use-filename-at-point 'guess)
+  (setq ido-create-new-buffer 'always)
+  :config
+  (ido-mode 1))
