@@ -32,7 +32,7 @@ alias udacity="docker run -e DISPLAY -e QT_X11_NO_MITSHM -v ~/.Xauthority:/home/
 
 alias sudo="sudo -E"
 
-alias checkinstall="sudo checkinstall --maintainer=jkordani@roboticresearch.com -D --strip=no --stripso=no"
+alias checkinstall="sudo checkinstall --maintainer=jkordani@roboticresearch.com -D --strip=no --stripso=no --install=no"
 
 alias kinetic="source /opt/ros/kinetic/setup.bash"
 
