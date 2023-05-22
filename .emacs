@@ -1,7 +1,5 @@
 (require 'package)
 
-(setq debug-on-error t)
-
 (add-to-list 'package-archives (cons "melpa" "https://melpa.org/packages/") t)
 
 (package-initialize)
@@ -195,8 +193,8 @@
 
 (use-package flymake-shellcheck
   :disabled
-  :hook ((sh-mode flymake-mode)
-         (sh-mode flymake-shellcheck-load)))
+  :hook ((sh-mode . #'flymake-mode)
+         (sh-mode . #'flymake-shellcheck-load)))
 
 (use-package yasnippet
   :config (yas-global-mode 1))
@@ -215,13 +213,20 @@
         company-minimum-prefix-length 1
         lsp-idle-delay 0.1
         lsp-keymap-prefix "s-l")
-  :hook ((c-mode lsp)
-         (c++-mode-hook lsp)
-         (lsp-mode lsp-enable-which-key-integration))
+  :hook ((c-mode-common . lsp-deferred)
+         (lsp-mode . lsp-enable-which-key-integration))
   :config
   (use-package yasnippet)
   (yas-global-mode)
-  (setq lsp-modeline-diagnostics-scope :workspace))
+  (setq lsp-modeline-diagnostics-scope :workspace)
+  ;; (setq lsp-clangd-binary-path "/tmp/clangd/clangd_15.0.6/bin/clangd")
+  (setq lsp-clients-clangd-args '("-j=6" "--background-index" "--log=verbose"
+                                  "--header-insertion=iwyu" "--clang-tidy"
+                                  "--suggest-missing-includes" ;; "--recovery-ast=true"
+                                  "--function-arg-placeholders"
+                                  "--query-driver=/usr/bin/c*")
+        lsp-clients-clangd-library-directories '("/usr/" "/opt" "/home/jkordani/.conan"))
+  :commands (lsp lsp-deferred))
 
 ;; (with-eval-after-load 'lsp-mode
 ;;   ;; (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
@@ -229,7 +234,7 @@
 ;;   (setq lsp-modeline-diagnostics-scope :workspace))
 
 (use-package company
-  :hook ((after-init global-company-mode)
+  :hook ((after-init . global-company-mode)
          (c-mode-common .
                    (lambda ()
                      (define-key c-mode-base-map (kbd "<C-tab>") (function company-complete))))))
@@ -241,8 +246,10 @@
 (use-package magit)
 
 (use-package magit-svn
-  ;; :hook (magit-mode magit-svn-mode-hook)
-  )
+  :after magit)
+
+(use-package forge
+  :after magit)
 
 (use-package sly)
 
@@ -256,11 +263,11 @@
 
 (use-package paredit
   :disabled ;; don't know why this doesn't work
-  :hook (;; (emacs-lisp-mode paredit-mode)
-         ;; (lisp-mode paredit-mode)
-         ;; (sly-mode paredit-mode)
-         ;; (common-lisp-lisp-mode paredit-mode)
-         ))
+  :hook ((emacs-lisp-mode . #'paredit-mode)
+         (lisp-mode . #'paredit-mode)
+         (sly-mode . #'paredit-mode)
+         (slime-mode . #'paredit-mode)
+         (common-lisp-lisp-mode . #'paredit-mode)))
 
 (use-package git-gutter
   :config
