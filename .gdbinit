@@ -12,4 +12,4 @@ set debug-file-directory /usr/lib/debug:/usr/local/lib/debug
 
 source ~/.gdbinit_db-auto
 
-#source ~/.rrgdbinit
+source ~/.rrgdbinit

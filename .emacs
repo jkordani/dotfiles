@@ -4,6 +4,10 @@
 
 (package-initialize)
 
+(require 'async)
+(async-bytecomp-package-mode 1)
+(setq async-bytecomp-allowed-packages '(all))
+
 (unless (package-installed-p 'use-package)
   ;; only fetch the archives if you don't have use-package installed
   (package-refresh-contents)
@@ -154,13 +158,17 @@
 ;; (add-hook 'objc-mode-hook #'my-flycheck-rtags-setup)
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
-(setq gc-cons-threshold 100000000
+(setq ;; gc-cons-threshold 100000000
       read-process-output-max (* 1024 1024)
       treemacs-space-between-root-nodes nil
       company-idle-delay 0.0
       company-minimum-prefix-length 1
       lsp-idle-delay 0.1
       lsp-keymap-prefix "s-l")
+
+(require 'emacs-gc-stats)
+(setq emacs-gc-stats-gc-defaults 'emacs-defaults) ; optional
+(emacs-gc-stats-mode +1)
 
 ;; https://www.reddit.com/r/emacs/comments/l0huvz/how_do_you_solve_merge_conflicts/
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -219,13 +227,18 @@
   (use-package yasnippet)
   (yas-global-mode)
   (setq lsp-modeline-diagnostics-scope :workspace)
-  ;; (setq lsp-clangd-binary-path "/tmp/clangd/clangd_15.0.6/bin/clangd")
+  ;; (setq lsp-clangd-binary-path "/usr/local/bin/clangd")
   (setq lsp-clients-clangd-args '("-j=6" "--background-index" "--log=verbose"
                                   "--header-insertion=iwyu" "--clang-tidy"
-                                  "--suggest-missing-includes" ;; "--recovery-ast=true"
                                   "--function-arg-placeholders"
-                                  "--query-driver=/usr/bin/c*")
+                                  "--query-driver=/usr/bin/c*"
+                                  )
         lsp-clients-clangd-library-directories '("/usr/" "/opt" "/home/jkordani/.conan"))
+  ;; (setq lsp-clients-clangd-args '("-j=6" "--background-index" "--log=verbose"
+  ;;                                 "--header-insertion=iwyu" "--clang-tidy"
+  ;;                                 "--suggest-missing-includes" ;; "--recovery-ast=true"
+  ;;                                 "--function-arg-placeholders")
+  ;;       lsp-clients-clangd-library-directories '("/usr/" "/opt" "/home/jkordani/.conan"))
   :commands (lsp lsp-deferred))
 
 ;; (with-eval-after-load 'lsp-mode
@@ -283,7 +296,7 @@
 ;; (require 'which-func)
 ;; (which-func-mode t)
 
-(setq-default backup-directory-alist `(("." . "~/.saves")))
+(setq-default backup-directory-alist `(("." . "~/.emacs.d/.saves")))
 (setq-default delete-old-versions t
   kept-new-versions 6
   kept-old-versions 2

@@ -1,14 +1,23 @@
+
+
 set python print-stack full
 python
 
 import re
 
 def gdb_unescape(string):
-    result = ""
-    pos = 0
-    while pos < len(string):
-        result += chr(int(string[pos:pos+2], 16))
-        pos += 2
+    str_len = len(string)
+    if str_len % 2:
+        return ""
+    result = "" # check for unexpected string length
+    try:
+        pos = 0
+        while pos < str_len:
+            hex_char = string[pos:pos+2]
+            result += chr(int(hex_char, 16))
+            pos += 2
+    except: # check for unexpected string value
+        return ""
     return result
 
 def gdb_escape(string):
@@ -40,6 +49,17 @@ class RRWhere(gdb.Command):
         gdb.write(rv)
 
 RRWhere()
+
+class RRDenied(gdb.Command):
+    """Helper to prevent use of breaking commands. Used by auto-args"""
+    def __init__(self):
+        gdb.Command.__init__(self, 'rr-denied',
+                             gdb.COMMAND_USER, gdb.COMPLETE_NONE, False)
+
+    def invoke(self, arg, from_tty):
+        raise gdb.GdbError("Execution of '" + arg + "' is not possible in recorded executions.")
+
+RRDenied()
 
 class RRCmd(gdb.Command):
     def __init__(self, name, auto_args):
@@ -161,6 +181,9 @@ end
 document seek-ticks
 restart at given ticks value
 end
+define jump
+  rr-denied jump
+end
 define hook-run
   rr-hook-run
 end
@@ -202,7 +225,7 @@ handle SIGURG stop
 set prompt (rr) 
 python
 import re
-m = re.compile('.* ([0-9]+)\.([0-9]+)(\.([0-9]+))?.*').match(gdb.execute('show version', False, True))
+m = re.compile('[^0-9]*([0-9]+)\.([0-9]+)(\.([0-9]+))?').match(gdb.VERSION)
 ver = int(m.group(1))*10000 + int(m.group(2))*100
 if m.group(4):
     ver = ver + int(m.group(4))

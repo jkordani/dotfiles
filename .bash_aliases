@@ -32,9 +32,9 @@ alias udacity="docker run -e DISPLAY -e QT_X11_NO_MITSHM -v ~/.Xauthority:/home/
 
 alias sudo="sudo -E"
 
-alias checkinstall="sudo checkinstall --maintainer=jkordani@roboticresearch.com -D --strip=no --stripso=no --install=no"
+alias checkinstall="checkinstall --maintainer=jkordani@roboticresearch.com -D --strip=no --stripso=no --install=no --fstrans=yes"
 
-alias kinetic="source /opt/ros/kinetic/setup.bash"
+# alias kinetic="source /opt/ros/kinetic/setup.bash"
 
 alias srcalias='source ~/.bashrc; source ~/.bash_aliases; source ~/.rr_aliases'
 
@@ -89,6 +89,14 @@ shopt -s globstar
 alias bin2hex="hexdump -ve '1/1 \"%.2x\"'"
 
 #makes my qt4 app recordable in rr replay tool.  But might change the behavior?
-export QT_X11_NO_MITSHM=1
+# export QT_X11_NO_MITSHM=1
 
-source /opt/ros/kinetic/setup.bash
+function datefromsec () {
+    date --date="@$1"
+}
+typeset -xf datefromsec
+
+function datetosec () {
+    date --date="$1" +%s
+}
+typeset -xf datetosec
